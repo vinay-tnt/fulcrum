@@ -44,6 +44,13 @@ gem "gon", "~> 6.4.0"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.20"
 
+# AWS Plugins for Rails
+gem 'aws-sdk-core', '~> 3.172.0'
+gem 'aws-sdk-iot', '~> 1.104.0'
+gem 'aws-sdk-iotdataplane', '~> 1.44.0'
+gem 'aws-sdk-rails', '~> 5.1.0'
+gem 'aws-sdk-s3', '~> 1.122.0'
+
 # Use Devise for authentication
 gem "devise", "~> 4.9.4"
 gem "devise_invitable", "~> 2.0.9"
