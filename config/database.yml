@@ -4,6 +4,8 @@
 #   gem install pg
 # On macOS with Homebrew:
 #   gem install pg -- --with-pg-config=/usr/local/bin/pg_config
+# On macOS with MacPorts:
+#   gem install pg -- --with-pg-config=/opt/local/lib/postgresql84/bin/pg_config
 # On Windows:
 #   gem install pg
 #       Choose the win32 build.
@@ -19,18 +21,65 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
-
 development:
-  <<: *default
-  database: fulcrum_development
+  primary:
+    <<: *default
+    host: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['host'] %>
+    database: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['dbname'] %>
+    username: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['password'] %>
 
-  # The specified database role being used to connect to PostgreSQL.
-  # To create additional roles in PostgreSQL see `$ createuser --help`.
-  # When left blank, PostgreSQL will use the default role. This is
+  primary_reader:
+    <<: *default
+    host: <%= ENV['RP_DB_PRIMARY_READER_HOST']%>
+    database: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['dbname'] %>
+    username: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['password'] %>
+    replica: true
+
+  audit:
+    <<: *default
+    host: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['host'] %>
+    database: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['dbname'] %>
+    migrations_paths: db/audit_migrate
+    username: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['password'] %>
+
+  audit_reader:
+    <<: *default
+    host: <%= ENV['RP_DB_AUDIT_READER_HOST']%>
+    database: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['dbname'] %>
+    username: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['password'] %>
+    migrations_paths: db/audit_migrate
+    replica: true
+
+  sensor:
+    <<: *default
+    host: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['host'] %>
+    database: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['dbname'] %>
+    port: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['port'] %>
+    migrations_paths: db/sensor_migrate
+    username: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['password'] %>
+
+  sensor_reader:
+    <<: *default
+    host: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['host'] %>
+    database: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['dbname'] %>
+    port: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['port'] %>
+    migrations_paths: db/sensor_migrate
+    username: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['password'] %>
+    replica: true
+
+  # The specified database role being used to connect to postgres.
+  # To create additional roles in postgres see `$ createuser --help`.
+  # When left blank, postgres will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: fulcrum
+  #username: platform
 
-  # The password associated with the PostgreSQL role (username).
+  # The password associated with the postgres role (username).
   #password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -55,8 +104,56 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: fulcrum_test
+  primary:
+    <<: *default
+    host: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['host'] %>
+    database: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['dbname'] %>_test
+    username: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['password'] %>
+
+  primary_reader:
+    <<: *default
+    host: <%= ENV['RP_DB_PRIMARY_READER_HOST']%>
+    database: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['dbname'] %>_test
+    username: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['password'] %>
+    replica: true
+
+  audit:
+    <<: *default
+    host: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['host'] %>
+    database: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['dbname'] %>_test
+    migrations_paths: db/audit_migrate
+    username: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['password'] %>
+
+  audit_reader:
+    <<: *default
+    host: <%= ENV['RP_DB_AUDIT_READER_HOST']%>
+    database: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['dbname'] %>_test
+    username: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['password'] %>
+    migrations_paths: db/audit_migrate
+    replica: true
+
+  sensor:
+    <<: *default
+    host: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['host'] %>
+    database: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['dbname'] %>
+    port: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['port'] %>
+    migrations_paths: db/sensor_migrate
+    username: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['password'] %>
+
+  sensor_reader:
+    <<: *default
+    host: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['host'] %>
+    database: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['dbname'] %>
+    port: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['port'] %>
+    migrations_paths: db/sensor_migrate
+    username: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['password'] %>
+    replica: true
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -79,7 +176,53 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: fulcrum_production
-  username: fulcrum
-  password: <%= ENV["FULCRUM_DATABASE_PASSWORD"] %>
+  primary:
+    <<: *default
+    host: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['host'] %>
+    database: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['dbname'] %>
+    username: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['password'] %>
+
+  primary_reader:
+    <<: *default
+    host: <%= ENV['RP_DB_PRIMARY_READER_HOST']%>
+    database: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['dbname'] %>
+    username: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_PRIMARY_CREDS'])['password'] %>
+    replica: true
+
+  audit:
+    <<: *default
+    host: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['host'] %>
+    database: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['dbname'] %>
+    migrations_paths: db/audit_migrate
+    username: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['password'] %>
+
+  audit_reader:
+    <<: *default
+    host: <%= ENV['RP_DB_AUDIT_READER_HOST']%>
+    database: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['dbname'] %>
+    username: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_AUDIT_CREDS'])['password'] %>
+    migrations_paths: db/audit_migrate
+    replica: true
+
+  sensor:
+    <<: *default
+    host: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['host'] %>
+    database: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['dbname'] %>
+    port: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['port'] %>
+    migrations_paths: db/sensor_migrate
+    username: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['password'] %>
+
+  sensor_reader:
+    <<: *default
+    host: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['host'] %>
+    database: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['dbname'] %>
+    port: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['port'] %>
+    migrations_paths: db/sensor_migrate
+    username: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['username'] %>
+    password: <%= JSON.parse(ENV['RP_DB_TIMESCALE_CREDS'])['password'] %>
+    replica: true
