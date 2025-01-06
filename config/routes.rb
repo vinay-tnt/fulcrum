@@ -11,4 +11,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # Mounts the core engine routes at the root path
+  constraints subdomain: /.+/ do
+    mount Core::Engine => '/'
+  end
 end
