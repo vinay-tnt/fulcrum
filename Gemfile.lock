@@ -1,3 +1,12 @@
+PATH
+  remote: ../relativity-core
+  specs:
+    relativity-core (1.0.0.pre.0)
+      acts_as_tenant (~> 1.0.1)
+      pg (= 1.5.9)
+      rails (>= 8.0.1)
+      store_model (~> 4.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -500,6 +509,7 @@ DEPENDENCIES
   puma (~> 6.5.0)
   rails (~> 8.0.1)
   redis (~> 5.3.0)
+  relativity-core!
   relativity_parsers (= 2.0.0)!
   resque (~> 2.7.0)
   resque-scheduler (~> 4.11.0)

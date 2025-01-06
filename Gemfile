@@ -94,6 +94,8 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.13.0"
 
+gem "relativity-core", path: '../relativity-core'
+
 source "https://rubygems.pkg.github.com/tagntrac-infra" do
   # For parsing binary data from AOVX devices
   gem "relativity_parsers", "2.0.0"
