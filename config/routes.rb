@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   # Mounts the core engine routes at the root path
   constraints subdomain: /.+/ do
+    mount Shipments::Engine => '/track'
     mount Core::Engine => '/'
   end
 end

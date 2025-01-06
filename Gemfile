@@ -95,6 +95,7 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.13.0"
 
 gem "relativity-core", path: '../relativity-core'
+gem "relativity-shipments", path: '../shipments'
 
 source "https://rubygems.pkg.github.com/tagntrac-infra" do
   # For parsing binary data from AOVX devices
