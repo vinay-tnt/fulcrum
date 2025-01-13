@@ -1,3 +1,29 @@
+PATH
+  remote: ../core
+  specs:
+    core (0.1.0)
+      rails (>= 8.0.1)
+
+PATH
+  remote: ../trace
+  specs:
+    trace (0.1.0)
+      rails (>= 8.0.1)
+
+PATH
+  remote: ../track
+  specs:
+    track (0.1.0)
+      core
+      rails (>= 8.0.1)
+
+PATH
+  remote: ../trail
+  specs:
+    trail (0.1.0)
+      core
+      rails (>= 8.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -280,6 +306,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   brakeman
+  core!
   cssbundling-rails
   debug
   jsbundling-rails
@@ -290,6 +317,9 @@ DEPENDENCIES
   rubocop-rails-omakase
   stimulus-rails
   thruster
+  trace!
+  track!
+  trail!
   turbo-rails
   tzinfo-data
   web-console

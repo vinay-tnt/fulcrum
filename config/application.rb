@@ -28,6 +28,12 @@ module Fulcrum
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    # Custom path for asset pipeline
+    config.assets.prefix = '/rp-assets'
+
+    # Prepend all log lines with the following tags.
+    config.log_tags = [ ->(_req) { DateTime.now.to_time.utc }, :request_id, :remote_ip ]
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -38,5 +44,21 @@ module Fulcrum
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Configure generators
+    config.generators do |g|
+      # Use UUID as primary key for all models
+      g.orm :active_record, primary_key_type: :uuid
+    end
+
+    # Config to support sub-domain
+    config.action_dispatch.tld_length = ENV.fetch('RP_TLD_LENGTH', 1).to_i
+
+    # Allowed Hosts
+    config.hosts << ENV.fetch('RP_ALLOWED_HOSTS', nil)
+
+    # Configure Cache Store
+    cache_store_url = "#{ENV.fetch('RP_APP_REDIS_HOST', nil)}:#{ENV.fetch('RP_APP_REDIS_PORT', nil)}"
+    config.cache_store = :redis_cache_store, { url: cache_store_url }
   end
 end

@@ -11,4 +11,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # Mount the core engine at the root path
+  mount Track::Engine, at: "/track"
+  mount Trail::Engine, at: "/trail"
+  mount Trace::Engine, at: "/trace"
+  mount Core::Engine,  at: "/"
 end
