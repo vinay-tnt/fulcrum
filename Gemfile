@@ -23,6 +23,9 @@ gem "stimulus-rails", "~> 1.3.4"
 # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
 gem "cssbundling-rails", "~> 1.4.1"
 
+# Use Tailwind CSS for stylesheets [https://tailwindcss.com]
+gem "tailwindcss-rails"
+
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 5.3.0"
 
