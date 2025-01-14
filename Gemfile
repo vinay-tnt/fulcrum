@@ -56,10 +56,10 @@ source "https://rubygems.pkg.github.com/tagntrac-infra" do
   # gem 'relativity_iot_core', '1.0.0'
 
   # Platform Application Modules
-  gem "track", path: "../track"
-  gem "trail", path: "../trail"
-  gem "trace", path: "../trace"
-  gem "core", path: "../core"
+  gem "track", path: "/Users/vinayuttamvemparala/Documents/Projects/track"
+  gem "trail", path: "/Users/vinayuttamvemparala/Documents/Projects/trail"
+  gem "trace", path: "/Users/vinayuttamvemparala/Documents/Projects/trace"
+  gem "core", path: "/Users/vinayuttamvemparala/Documents/Projects/core"
 end
 
 group :development, :test do
