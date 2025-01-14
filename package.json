@@ -1,12 +1,13 @@
 {
-  "name": "app",
+  "name": "fulcrum",
+  "version": "2.0.0-alpha",
+  "description": "Relativity Platform developed using Ruby on Rails, Turbo, Strada, StimulusJS, Tailwind CSS, PostgreSQL, Kafka",
+  "author": "Vinay Uttam Vemparala <vinay.vemparala@tagntrac.com>",
   "private": true,
-  "devDependencies": {
-    "esbuild": "^0.24.2"
-  },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
-    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify",
+    "prettier": "prettier --write app/javascript/**/**/**/**.js"
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
@@ -14,5 +15,18 @@
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.2",
+    "prettier": "^3.4.2"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "endOfLine": "lf",
+    "trailingComma": "all",
+    "useTabs": false,
+    "semi": true
   }
 }
