@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
-  channel_prefix: fulcrum_production
+  url: <%= ENV.fetch("RP_APP_REDIS_HOST") { "redis://localhost:6379/1" } %>
+  channel_prefix: relativity_app_production

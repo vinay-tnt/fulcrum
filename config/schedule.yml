@@ -1,0 +1,79 @@
+every_fifteen_mins:
+  cron: "*/15 * * * * UTC"
+  class: ActiveJob::QueueAdapters::ResqueAdapter::JobWrapper
+  description: "Background job perform operations scheduled for every 15 mins"
+  queue: periodic
+  args:
+    job_class: Orchestrator::QuarterHourly
+    queue_name: periodic
+    arguments: []
+
+every_thirty_mins:
+  cron: "*/30 * * * * UTC"
+  class: ActiveJob::QueueAdapters::ResqueAdapter::JobWrapper
+  description: "Background job perform operations scheduled for every 30 mins"
+  queue: periodic
+  args:
+    job_class: Orchestrator::HalfHourly
+    queue_name: periodic
+    arguments: []
+
+every_hour:
+  cron: "0 * * * * UTC"
+  class: ActiveJob::QueueAdapters::ResqueAdapter::JobWrapper
+  description: "Background job perform operations scheduled for every hour"
+  queue: periodic
+  args:
+    job_class: Orchestrator::Hourly
+    queue_name: periodic
+    arguments: []
+
+every_three_hours:
+  cron: "0 */3 * * * UTC"
+  class: ActiveJob::QueueAdapters::ResqueAdapter::JobWrapper
+  description: "Background job perform operations scheduled for every 3 hours"
+  queue: periodic
+  args:
+    job_class: Orchestrator::ThreeHour
+    queue_name: periodic
+    arguments: []
+
+every_six_hours:
+  cron: "0 */6 * * * UTC"
+  class: ActiveJob::QueueAdapters::ResqueAdapter::JobWrapper
+  description: "Background job perform operations scheduled for every 6 hours"
+  queue: periodic
+  args:
+    job_class: Orchestrator::SixHour
+    queue_name: periodic
+    arguments: []
+
+every_twelve_hours:
+  cron: "0 */12 * * * UTC"
+  class: ActiveJob::QueueAdapters::ResqueAdapter::JobWrapper
+  description: "Background job perform operations scheduled for every 12 hours"
+  queue: periodic
+  args:
+    job_class: Orchestrator::TwelveHour
+    queue_name: periodic
+    arguments: []
+
+every_one_day:
+  cron: "0 7 * * * UTC"
+  class: ActiveJob::QueueAdapters::ResqueAdapter::JobWrapper
+  description: "Background job perform operations scheduled for every day at 7 AM UTC"
+  queue: periodic
+  args:
+    job_class: Orchestrator::Daily
+    queue_name: periodic
+    arguments: []
+
+every_week:
+  cron: "0 7 * * mon UTC"
+  class: ActiveJob::QueueAdapters::ResqueAdapter::JobWrapper
+  description: "Background job perform operations scheduled for every week on Monday at 7 AM UTC"
+  queue: periodic
+  args:
+    job_class: Orchestrator::Weekly
+    queue_name: periodic
+    arguments: []

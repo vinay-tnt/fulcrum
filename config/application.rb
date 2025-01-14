@@ -29,7 +29,7 @@ module Fulcrum
     config.autoload_lib(ignore: %w[assets tasks])
 
     # Custom path for asset pipeline
-    config.assets.prefix = '/rp-assets'
+    config.assets.prefix = "/rp-assets"
 
     # Prepend all log lines with the following tags.
     config.log_tags = [ ->(_req) { DateTime.now.to_time.utc }, :request_id, :remote_ip ]
@@ -52,10 +52,10 @@ module Fulcrum
     end
 
     # Config to support sub-domain
-    config.action_dispatch.tld_length = ENV.fetch('RP_TLD_LENGTH', 1).to_i
+    config.action_dispatch.tld_length = ENV.fetch("RP_TLD_LENGTH", 1).to_i
 
     # Allowed Hosts
-    config.hosts << ENV.fetch('RP_ALLOWED_HOSTS', nil)
+    config.hosts << ENV.fetch("RP_ALLOWED_HOSTS", nil)
 
     # Configure Cache Store
     cache_store_url = "#{ENV.fetch('RP_APP_REDIS_HOST', nil)}:#{ENV.fetch('RP_APP_REDIS_PORT', nil)}"
