@@ -12,6 +12,21 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
+  # Mount the API routes at api subdomain
+  constraints subdomain: "api" do
+    namespace :v1, defaults: { format: :json_v1 } do
+      resources :tenants, only: [ :index, :show ] do
+        post :check, to: "tenants#check_subdomain", on: :collection
+      end
+    end
+
+    # constraints ->(request) { RoutingConstraint.dell_engine?(request) } do
+    #   mount Dell::Engine, at: '/', as: :api_dell
+    # end
+
+    # mount Core::Engine, at: '/', as: :api_core
+  end
+
   # Mount the core engine at the root path
   # mount Track::Engine, at: "/track"
   # mount Trail::Engine, at: "/trail"
