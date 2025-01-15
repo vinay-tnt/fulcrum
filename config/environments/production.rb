@@ -57,7 +57,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+  # config.action_mailer.default_url_options = { host: "example.com" }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {
@@ -86,4 +86,25 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  config.host_authorization = {
+    exclude: ->(request) { request.path =~ %r{^(/$|/up$|/health-check$)} }
+  }
+
+  # ActionMailer using AWS SES
+  config.action_mailer.delivery_method = :sesv2
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+
+  config.x.mail_from = "Relativity Platform - Tag-N-Trac <no-reply@#{ENV.fetch('RP_EMAIL_HOST', 'tagntrac.app')}>"
+
+  config.action_mailer.delivery_method = :sesv2
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+
+  # This should always be last
+  config.hosts << "api.tagntrac.ai"
+  config.hosts << ".tagntrac.ai"
+
+  # ActiveJob Queue Adapter
+  config.active_job.queue_adapter = :resque
 end

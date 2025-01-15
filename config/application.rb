@@ -60,5 +60,8 @@ module Fulcrum
     # Configure Cache Store
     cache_store_url = "#{ENV.fetch('RP_APP_REDIS_HOST', nil)}:#{ENV.fetch('RP_APP_REDIS_PORT', nil)}"
     config.cache_store = :redis_cache_store, { url: cache_store_url }
+
+    # ActiveJob Adapter
+    config.active_job.queue_adapter = :resque
   end
 end
