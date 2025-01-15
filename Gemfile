@@ -51,6 +51,9 @@ gem "dentaku", "~> 3.5.4"
 gem "resque", "~> 2.7.0"
 gem "resque-scheduler", "~> 4.11.0"
 
+# Karafka for Kafka
+gem "karafka", "~> 2.2.7"
+
 # Internal Gems for Relativity Platform
 source "https://rubygems.pkg.github.com/tagntrac-infra" do
   # gem 'relativity_parsers', '2.0.0'
