@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   # Mount the core engine at the root path
-  mount Track::Engine, at: "/track"
-  mount Trail::Engine, at: "/trail"
-  mount Trace::Engine, at: "/trace"
+  # mount Track::Engine, at: "/track"
+  # mount Trail::Engine, at: "/trail"
+  # mount Trace::Engine, at: "/trace"
   mount Core::Engine,  at: "/"
 end
