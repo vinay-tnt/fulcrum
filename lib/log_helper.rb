@@ -60,7 +60,7 @@ module LogHelper
   #
   # Returns the formatted log message.
   def build_log_message(message, log_identifier, device_identifier)
-    parts = [self.class.to_s]
+    parts = [ self.class.to_s ]
     parts << log_identifier if log_identifier
     parts << device_identifier if device_identifier
     parts << message
