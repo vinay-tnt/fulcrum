@@ -57,9 +57,12 @@ gem "karafka", "~> 2.2.7"
 # Blueprinter for API response
 gem "blueprinter", "~> 1.1.2"
 
+# StoreModel
+gem "store_model", "~> 4.2.0"
+
 # Internal Gems for Relativity Platform
 source "https://rubygems.pkg.github.com/tagntrac-infra" do
-  # gem 'relativity_parsers', '2.0.0'
+  gem "relativity_parsers", path: "/Users/vinayuttamvemparala/Documents/RPV2/relativity_parsers"
 
   # For accessing the device capabilities on IoT Core
   # gem 'relativity_iot_core', '1.0.0'
@@ -74,6 +77,10 @@ end
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+
+  # Pry for debugging
+  gem "pry", "~> 0.15.2b"
+  gem "pry-rails", "~> 0.3.11"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false

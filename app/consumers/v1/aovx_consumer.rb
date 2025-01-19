@@ -2,7 +2,21 @@ module V1
   class AovxConsumer < ApplicationConsumer
     def consume
       messages.each do |message|
-        log_info("AOVX Consumer:: Received message: #{message}")
+        begin
+          parsed_message = JSON.parse(message.raw_payload)
+          payload = AovxPayload.new(parsed_message)
+          log_identifier = SecureRandom.uuid
+
+          log_info("Received message from device at: #{payload.iot_core_received_at}", log_identifier, payload.device_identifier)
+          log_info("Payload: #{JSON.generate(message.raw_payload)}", log_identifier, payload.device_identifier)
+
+          parsed_reading = RelativityParsers::V3::Aovx.process_payload(payload.data)
+
+          pp parsed_reading
+        rescue => e
+          log_error("Failed to parse AOVX reading", log_identifier)
+          log_error(e.message, log_identifier)
+        end
       end
     end
 
