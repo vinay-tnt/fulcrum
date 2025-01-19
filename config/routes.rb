@@ -27,9 +27,13 @@ Rails.application.routes.draw do
     # mount Core::Engine, at: '/', as: :api_core
   end
 
-  # Mount the core engine at the root path
-  # mount Track::Engine, at: "/track"
-  # mount Trail::Engine, at: "/trail"
-  # mount Trace::Engine, at: "/trace"
-  mount Core::Engine,  at: "/"
+  # Mounts the core engine routes at the root path
+  constraints subdomain: /.+/ do
+    mount Core::Engine => '/'
+
+    # Mount the core engine at the root path
+    # mount Track::Engine, at: "/track"
+    # mount Trail::Engine, at: "/trail"
+    # mount Trace::Engine, at: "/trace"
+  end
 end
