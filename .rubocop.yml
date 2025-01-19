@@ -11,6 +11,8 @@ AllCops:
   Exclude:
     - 'bin/*'
     - 'db/schema.rb'
+    - 'db/sensor_schema.rb'
+    - 'db/audit_schema.rb'
     - 'db/seeds.rb'
     - 'db/**/*.rb'
   TargetRubyVersion: 3.3.3
