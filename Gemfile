@@ -72,6 +72,9 @@ gem "store_model", "~> 4.2.0"
 # Discard for soft deletes
 gem "discard", "~> 1.4.0"
 
+# Helper method for rendering SVGs in Rails views
+gem "inline_svg", "~> 1.7.0"
+
 # Internal Gems for Relativity Platform
 source "https://rubygems.pkg.github.com/tagntrac-infra" do
   gem "relativity_parsers", path: "/Users/vinayuttamvemparala/Documents/RPV2/relativity_parsers"
